@@ -1,0 +1,63 @@
+Crear Base de Datos (Nombre Opcional )
+
+Crea una base de datos luego de eso ejecuta el siguiente código SQL Tabla por Tabla: 
+
+
+
+-- ENTIDAD CARRERAS 
+CREATE TABLE carrera (
+	codigo_c INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	nombre_c TEXT NOT NULL,
+	duracion_c INTEGER NOT NULL
+);
+
+--ENTIDAD PROFESOR
+CREATE TABLE profesor(
+	codigo_p INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	nombre_p TEXT NOT NULL,
+	telefono_p TEXT,
+	direccion_p TEXT
+);
+
+-- ENTIDAD MATERIAS
+CREATE TABLE materia (
+	codigo_m INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	nombre_m TEXT NOT NULL,
+	creditos_m INTEGER NOT NULL
+);
+
+--ENTIDAD ALUMNOS
+
+CREATE TABLE alumno (
+	codigo_a INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+	nombre_a TEXT NOT NULL,
+	edad_a TEXT,
+	telefono_a TEXT,
+	codigo_c1 INTEGER,
+	FOREIGN KEY (codigo_c1) REFERENCES carrera (codigo_c)
+);
+
+
+--Tabla intermedias ALUM_PROF
+CREATE TABLE alumno_profe(
+	codigo_a1 INTEGER,
+	codigo_p1 INTEGER,
+	FOREIGN KEY (codigo_a1) REFERENCES alumno (codigo_a), 
+	FOREIGN KEY (codigo_p1) REFERENCES profesor(codigo_p)
+);
+
+--Tabla intermedias MATE_ALUM
+CREATE TABLE materia_alumno(
+	codigo_m1 INTEGER,
+	codigo_a2 INTEGER,
+	FOREIGN KEY (codigo_m1) REFERENCES materia (codigo_m), 
+	FOREIGN KEY (codigo_a2) REFERENCES alumno(codigo_a)
+);
+
+--Tabla intermedias MATE_PROF
+CREATE TABLE materia_profe(
+	codigo_m2 INTEGER,
+	codigo_p2 INTEGER,
+	FOREIGN KEY (codigo_m2) REFERENCES materia (codigo_m), 
+	FOREIGN KEY (codigo_p2) REFERENCES profesor(codigo_p)
+);
